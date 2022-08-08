@@ -18,22 +18,21 @@ namespace Kata
 
             try
             {
-                 return tryAdd(Numbers);
+                return tryAdd(Numbers);
             }
             catch (System.Exception)
             {
-                return 0; 
+                return 0;
             }
 
-        } 
+        }
         private int tryAdd(string Numbers)
         {
             int ans;
-            ans = Numbers.Where(x=>x!=',').Aggregate((sum, i) => sum += i);
-            ans-=Numbers.Where(x=>x!=',').Count()*'0';
+            ans = Numbers.Where(x => x != ',').Aggregate((sum, i) => sum += i);
+            ans -= Numbers.Where(x => x != ',').Count() * '0';
             return ans;
         }
 
     }
-
 }
