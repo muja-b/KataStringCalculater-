@@ -1,0 +1,15 @@
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\bin\Debug\net6.0\KataStringCalculater-.exe
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\bin\Debug\net6.0\KataStringCalculater-.deps.json
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\bin\Debug\net6.0\KataStringCalculater-.runtimeconfig.json
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\bin\Debug\net6.0\KataStringCalculater-.dll
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\bin\Debug\net6.0\KataStringCalculater-.pdb
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\KataStringCalculater-.csproj.AssemblyReference.cache
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\KataStringCalculater-.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\KataStringCalculater-.AssemblyInfoInputs.cache
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\KataStringCalculater-.AssemblyInfo.cs
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\KataStringCalculater-.csproj.CoreCompileInputs.cache
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\KataStringCalculater-.dll
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\refint\KataStringCalculater-.dll
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\KataStringCalculater-.pdb
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\KataStringCalculater-.genruntimeconfig.cache
+C:\Users\muja\Documents\GitHub\KataStringCalculater-\obj\Debug\net6.0\ref\KataStringCalculater-.dll
