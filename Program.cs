@@ -6,7 +6,7 @@ namespace Kata
         static void Main(string[] args)
         {
             KataStringCalcolator FactoredCalc = new KataStringCalcolator();
-            int ans = FactoredCalc.add("//;1;2");
+            int ans = FactoredCalc.add("1,2,3");
             Console.WriteLine(ans);
         }
 
@@ -18,7 +18,7 @@ namespace Kata
 
             try
             {
-                return tryAdddelimiters(Numbers);
+                return tryAddbig(Numbers);
             }
             catch (System.Exception)
             {
@@ -33,6 +33,17 @@ namespace Kata
             ans -= Numbers.Where(x => x != ',').Count() * '0';
             return ans;
         }
+        private int tryAddbig(string Numbers)
+        {
+            List<string> Nums = Numbers.Split(',').ToList();
+            int sum = 0;
+            foreach (var item in Nums)
+            {
+                System.Console.WriteLine(item);
+                sum += Int32.Parse(item);
+            }
+            return sum;
+        }
         private int tryAddWithEndLine(string Numbers)
         {
             int ans;
@@ -42,7 +53,7 @@ namespace Kata
             ans -= Numbers.Where(x => x != ',').Count() * '0';
             return ans;
         }
-         private int tryAdddelimiters(string Numbers)
+        private int tryAdddelimiters(string Numbers)
         {
             int ans;
             char endLine = Numbers[2];
@@ -52,7 +63,7 @@ namespace Kata
             ans -= Numbers.Where(x => x != endLine).Count() * '0';
             return ans;
         }
-        
+
 
     }
 
