@@ -1,12 +1,11 @@
-﻿using System;
-namespace Kata
+﻿namespace Kata
 {
     class StringCalc
     {
         static void Main(string[] args)
         {
             KataStringCalcolator FactoredCalc = new KataStringCalcolator();
-            int ans = FactoredCalc.add("3,44,1");
+            int ans = FactoredCalc.add("3,4010,5");
             Console.WriteLine(ans);
         }
 
@@ -18,15 +17,16 @@ namespace Kata
 
             try
             {
-                return tryAdddelimiters(Numbers);
+                return tryAdddelimitersWithNegitaveIgnoreingBigNumbers(Numbers);
             }
-            catch (System.Exception)
+
+            catch (FormatException)
             {
                 return 0;
             }
 
         }
-        private int tryAdd(string Numbers)
+        private int tryAddSimple(string Numbers)
         {
             int ans;
             ans = Numbers.Where(x => x != ',').Aggregate((sum, i) => sum += i);
@@ -36,38 +36,72 @@ namespace Kata
         private int tryAddbig(string Numbers)
         {
             List<string> Nums = Numbers.Split(',').ToList();
-            int sum = 0;
-            foreach (var item in Nums)
-            {
-                sum += Int32.Parse(item);
-            }
-
+            int sum = GetSum(Nums);
             return sum;
         }
         private int tryAddWithEndLine(string Numbers)
         {
             Numbers = Numbers.Replace("/n", ",");
             List<string> Nums = Numbers.Split(',').ToList();
-            int sum = 0;
-            foreach (var item in Nums)
-            {
-                sum += Int32.Parse(item);
-            }
-
+            int sum = GetSum(Nums);
             return sum;
         }
         private int tryAdddelimiters(string Numbers)
         {
-            char endLine = ',';
+            char diameter = ',';
             if (Numbers.StartsWith("//"))
             {
-                endLine = Numbers[2];
-                Numbers = Numbers.Remove(0,3);
-                Numbers = Numbers.Replace("/n", endLine + "");
+                diameter = Getdiameter(Numbers);
             }
-            List<string> Nums = Numbers.Split(endLine).ToList();
+            List<string> Nums = Numbers.Split(diameter).ToList();
+            int sum = GetSum(Nums);
+            return sum;
+        }
+        private int tryAdddelimitersWithNegitave(string Numbers)
+        {
+            char diameter = ',';
+            if (Numbers.StartsWith("//"))
+            {
+                diameter = Getdiameter(Numbers);
+            }
+            RemoveNewLine(Numbers, diameter);
+            List<string> Nums = Numbers.Split(diameter).ToList();
+            testNegitaves(Nums);
+            int sum = GetSum(Nums);
+            return sum;
+        }
+        private int tryAdddelimitersWithNegitaveIgnoreingBigNumbers(string Numbers)
+        {
+            char diameter = ',';
+            if (Numbers.StartsWith("//"))
+            {
+                diameter = Getdiameter(Numbers);
+            }
+            RemoveNewLine(Numbers, diameter);
+            List<string> Nums = Numbers.Split(diameter).ToList();
+            testNegitaves(Nums);
+            FilterNums(Nums);
+            int sum = GetSum(Nums);
+            return sum;
+        }
+
+        private void FilterNums(List<string> nums)
+        {
+            for (int i = 0; i < nums.Count(); i++)
+            {
+                if (nums.ElementAt(i).Count() > 3)
+                {
+                    var LargeNum = nums.ElementAt(i).Substring(nums.ElementAt(i).Count()-3,3);
+                    nums.RemoveAt(i);
+                    nums.Add(LargeNum);
+                }
+            }
+        }
+
+        private int GetSum(List<string> nums)
+        {
             int sum = 0;
-            foreach (var item in Nums)
+            foreach (var item in nums)
             {
                 sum += Int32.Parse(item);
             }
@@ -75,7 +109,40 @@ namespace Kata
             return sum;
         }
 
+        private void testNegitaves(List<string> Nums)
+        {
+            var negitave = Nums.Where(x => x.StartsWith("-")).ToList();
+            if (negitave.Count != 0 && Nums != null)
+            {
+                string msg = "";
+                foreach (var item in negitave)
+                {
+                    msg += item + " ";
+                }
+                throw new NegitaveNotAllowedException(msg);
+            }
+        }
 
+        private void RemoveNewLine(string numbers, char diameter)
+        {
+            numbers = numbers.Replace("/n", diameter + "");
+        }
+
+        public char Getdiameter(string numbers)
+        {
+            char diameter = numbers[2];
+            numbers = numbers.Remove(0, 3);
+            return diameter;
+        }
+
+        public class NegitaveNotAllowedException : Exception
+        {
+            public NegitaveNotAllowedException(string message)
+                : base("negatives not allowed:" + message)
+            {
+            }
+        }
     }
+
 
 }
