@@ -6,7 +6,7 @@ namespace Kata
         static void Main(string[] args)
         {
             KataStringCalcolator FactoredCalc = new KataStringCalcolator();
-            int ans = FactoredCalc.add("1,2,3");
+            int ans = FactoredCalc.add("1,2,3,4");
             Console.WriteLine(ans);
         }
 
