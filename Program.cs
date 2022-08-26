@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             KataStringCalcolator FactoredCalc = new KataStringCalcolator();
-            int ans = FactoredCalc.add("3,4010,5");
+            int ans = FactoredCalc.add("-3,4010,5");
             Console.WriteLine(ans);
         }
 
@@ -36,14 +36,16 @@
         private int tryAddbig(string Numbers)
         {
             List<string> Nums = Numbers.Split(',').ToList();
-            int sum = GetSum(Nums);
+            var ParsedNums = ParseListToInt(Nums);
+            int sum = GetSum(ParsedNums);
             return sum;
         }
-        private int tryAddWithEndLine(string Numbers)
+        private int tryAddWithNewLine(string Numbers)
         {
-            Numbers = Numbers.Replace("/n", ",");
-            List<string> Nums = Numbers.Split(',').ToList();
-            int sum = GetSum(Nums);
+            var myNumbers = Numbers.Replace("/n", ",");
+            List<string> Nums = myNumbers.Split(',').ToList();
+            var ParsedNums = ParseListToInt(Nums);
+            int sum = GetSum(ParsedNums);
             return sum;
         }
         private int tryAdddelimiters(string Numbers)
@@ -54,9 +56,21 @@
                 diameter = Getdiameter(Numbers);
             }
             List<string> Nums = Numbers.Split(diameter).ToList();
-            int sum = GetSum(Nums);
+            var ParsedNums = ParseListToInt(Nums);
+            int sum = GetSum(ParsedNums);
             return sum;
         }
+
+        private List<int> ParseListToInt(List<string> nums)
+        {
+            var Parsed = new List<int>();
+            foreach (var item in nums)
+            {
+                Parsed.Add(Int32.Parse(item));
+            }
+            return Parsed;
+        }
+
         private int tryAdddelimitersWithNegitave(string Numbers)
         {
             char diameter = ',';
@@ -64,10 +78,11 @@
             {
                 diameter = Getdiameter(Numbers);
             }
-            RemoveNewLine(Numbers, diameter);
-            List<string> Nums = Numbers.Split(diameter).ToList();
-            testNegitaves(Nums);
-            int sum = GetSum(Nums);
+            var myNumbers=RemoveNewLine(Numbers, diameter);
+            List<string> Nums = myNumbers.Split(diameter).ToList();
+            var myNums=ParseListToInt(Nums);
+            testNegitaves(myNums);
+            int sum = GetSum(myNums);
             return sum;
         }
         private int tryAdddelimitersWithNegitaveIgnoreingBigNumbers(string Numbers)
@@ -79,53 +94,51 @@
             }
             RemoveNewLine(Numbers, diameter);
             List<string> Nums = Numbers.Split(diameter).ToList();
-            testNegitaves(Nums);
-            FilterNums(Nums);
-            int sum = GetSum(Nums);
+            var myNums=ParseListToInt(Nums);
+            testNegitaves(myNums);
+            var filterdNums=FilterNums(myNums);
+            int sum = GetSum(filterdNums);
             return sum;
         }
 
-        private void FilterNums(List<string> nums)
-        {
-            for (int i = 0; i < nums.Count(); i++)
-            {
-                if (nums.ElementAt(i).Count() > 3)
-                {
-                    var LargeNum = nums.ElementAt(i).Substring(nums.ElementAt(i).Count()-3,3);
-                    nums.RemoveAt(i);
-                    nums.Add(LargeNum);
-                }
+        private List<int> FilterNums(List<int> nums)
+        {   
+            var myNumbers=new List<int>();
+            foreach (var item in nums)
+            {   
+                myNumbers.Add(item%1000);   
             }
+            return myNumbers;
         }
 
-        private int GetSum(List<string> nums)
+        private int GetSum(List<int> nums)
         {
             int sum = 0;
             foreach (var item in nums)
             {
-                sum += Int32.Parse(item);
+                sum += item;
             }
-
             return sum;
         }
 
-        private void testNegitaves(List<string> Nums)
+        private void testNegitaves(List<int> Nums)
         {
-            var negitave = Nums.Where(x => x.StartsWith("-")).ToList();
+            var negitave = Nums.Where(x => x<0).ToList();
             if (negitave.Count != 0 && Nums != null)
             {
                 string msg = "";
                 foreach (var item in negitave)
                 {
-                    msg += item + " ";
+                    msg +=item + " ";
                 }
                 throw new NegitaveNotAllowedException(msg);
             }
         }
 
-        private void RemoveNewLine(string numbers, char diameter)
+        private string RemoveNewLine(string numbers, char diameter)
         {
-            numbers = numbers.Replace("/n", diameter + "");
+            var myNumbers = numbers.Replace("/n", diameter + "");
+            return myNumbers;
         }
 
         public char Getdiameter(string numbers)
